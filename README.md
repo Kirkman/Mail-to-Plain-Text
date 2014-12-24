@@ -8,7 +8,7 @@ This is a Python "Mail Processor" module for use with Synchronet's mail server. 
 Why would someone want to do this?
 ----------------------------------
 
-This module is useful if you read your Synchronet email primarily through the telnet BBS interface. It ensures the messages remain readable, and don't display with lots of weird codes and symbols.
+This module is useful if you read your Synchronet email primarily through the telnet BBS interface. It ensures that messages remain readable, and don't display with lots of weird codes and symbols.
 
 Why would someone NOT want to do this?
 --------------------------------------
@@ -20,9 +20,9 @@ How do I install it?
 
 * Make sure you have Python 2.7 installed on your system.
 
-* Put mail-to-plaintext.py into /sbbs/mods
+* Put `mail-to-plaintext.py` into `/sbbs/mods/`
 
-* Add the following to your /sbbs/ctrl/mailproc.ini file:
+* Add the following to your `/sbbs/ctrl/mailproc.ini` file:
 
 ```
 [PlainText]
