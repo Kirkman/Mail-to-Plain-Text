@@ -5,6 +5,11 @@ This is a Python "Mail Processor" module for use with Synchronet's mail server. 
 
 ---
 
+Updates
+-------
+
+2015-04-12: Made a small fix to properly parse plain-text email parts that are base64-encoded.
+
 Why would someone want to do this?
 ----------------------------------
 
@@ -13,7 +18,9 @@ This module is useful if you read your Synchronet email primarily through the te
 Why would someone NOT want to do this?
 --------------------------------------
 
-If instead you read your Synchronet email using POP or IMAP, then you probably would not want to use this module. This module will strip out every part of the message except the plain text. That means file attachments are removed as well!
+If instead you read your Synchronet email using POP or IMAP, then you probably would not want to use this module. 
+
+Consider yourself warned: This module will **strip out** every part of the message except the plain text. _That means file attachments are removed as well_!
 
 How do I install it? 
 --------------------

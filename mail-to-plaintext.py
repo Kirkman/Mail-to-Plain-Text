@@ -7,15 +7,16 @@
 #                                        #
 #      author: Kirkman                   #
 #       email: josh [] joshrenaud.com    #
-#        date: Dec 23, 2014              #
+#        date: Apr 12, 2015              #
 #                                        #
 ##########################################
 
 import sys
 import getopt
 import email
-# import logging
+import base64
 
+# import logging
 # logging.basicConfig(filename='/sbbs/mods/mail-to-plaintext/python.log', filemode='a', level=logging.DEBUG)
 # logger = logging.getLogger('mail-to-plaintext')
 
@@ -56,9 +57,26 @@ def main(argv):
 			for part in msg.walk():
 				# each part is a either non-multipart, or another multipart message
 				# that contains further parts... Message is organized like a tree
-				if part.get_content_type() == 'text/plain':
-					# grab the plain text content and make sure it's a string
-					plaintext = str( part.get_payload() )
+				if 'text/plain' in part.get_content_type():
+
+					# grab the content and make sure it's a string
+					payload = str( part.get_payload(decode=True) )
+
+					####################################################
+					##  I think this commented-out code is obsolete.
+					##  Adding "decode=True" to the get_payload() above
+					##  seems to have fixed the base64 problem.
+					####################################################
+					# Get the content encoding. 
+					# enc = part['Content-Transfer-Encoding']
+					# # Check if encoding is base64. If so, we need to decode it first.
+					# if enc == "base64":
+					# 	plaintext = base64.decodestring(payload)
+					# else:
+					# 	plaintext = payload
+
+					plaintext = payload
+
 					# remove any remaining '=' (soft breaks) at end of lines
 					plaintext = plaintext.replace('=\r\n','')
 					plaintext = plaintext.replace('=\n','')
@@ -72,6 +90,7 @@ def main(argv):
 				# write the plain text message
 				newMsgFile.write( plaintext )
 				newMsgFile.close()
+ 
 		else:
 			with open(errorPath,'wb') as errFile:
 				errFile.write( 'A mail processing error occurred.')
@@ -79,7 +98,7 @@ def main(argv):
 					errFile.write( ' No headers detected.')
 				if not plaintext:
 					errFile.write( ' No plain text detected.')
-
+				errFile.close()
 
 
 if __name__ == "__main__":
